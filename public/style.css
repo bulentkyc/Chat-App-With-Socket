@@ -1,0 +1,25 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main{
+    width: 80vw;
+}
+
+main > * {
+    width: 100%;
+}
+
+main > section > * {
+    height: 30px;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#chat-box {
+    border: 1px solid coral;
+    height: 100px;
+}
