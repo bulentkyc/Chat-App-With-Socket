@@ -1,17 +1,18 @@
 const socket = io();
+
 const clickHandler = () => {
     let msg = document.querySelector('#msg-box');
     socket.emit('chat message', msg.value);
     msg.value = '';
 }
 
-socket.emit('nick', sessionStorage.getItem('nick'));
+socket.emit('token', sessionStorage.getItem('token'));
 
-socket.on('nickName', nick => {
+socket.on('ticket', ticket => {
     document
     .querySelector('#chat-box')
-    .insertAdjacentHTML("beforeend", `<li>Welcome on board ${nick}</li>`);
-    sessionStorage.setItem('nick', nick);
+    .insertAdjacentHTML("beforeend", `<li>Welcome on board ${ticket.nickName}</li>`);
+    sessionStorage.setItem('token', ticket.token);
 });
 
 socket.on('chat msg', msg => {
