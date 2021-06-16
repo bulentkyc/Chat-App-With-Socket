@@ -29,14 +29,23 @@ const switchHandler = () => {
 
 const listClickHandler = (name) => {
     //alert(name);
+    const preItem = state.activeChannel;
     state.activeChannel = name;
+    $(`#${preItem}`).classList.remove('active');
     $(`#${name}`).classList.add('active');
 }
 
 const listManager = () => {
     $('#active-list').innerHTML = '';
-    state[listEnumerable[state.list]].forEach(item => {
-        $('#active-list').insertAdjacentHTML('beforeend', `<li id = "${item}" onclick = "listClickHandler('${item}')" class = "list-item">${item}</li>`)
+    const list = state[listEnumerable[state.list]];
+    list.forEach(item => {
+        $('#active-list').insertAdjacentHTML('beforeend', 
+        `<li id = "${item}" onclick = "listClickHandler('${item}')" class = "list-item">
+            ${item}
+        </li>`);
+        if(item == list[list.length-1] && state.list === 0){
+            listClickHandler(state.activeChannel);
+        }
     });
 }
 
