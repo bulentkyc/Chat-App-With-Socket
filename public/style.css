@@ -7,13 +7,35 @@ body{
 
 main{
     width: 80vw;
+    height: 60vh;
+    display: grid;
+    grid-template-columns: 200px auto;
 }
 
-main > * {
+#user-channel-list  {
+    height: 100%;
+    border: 1px solid red;
+    background-color: antiquewhite;
+    overflow: scroll;
+}
+
+#chat-view {
+    height: 100%;
+}
+
+#chat-view > * {
     width: 100%;
 }
 
-main > section > * {
+#chat-box {
+    height: 55vh;
+}
+
+#chat-view > section {
+    height: 5vh;
+}
+
+#chat-view > section > * {
     height: 30px;
     box-sizing: border-box;
     margin: 0;
@@ -21,5 +43,29 @@ main > section > * {
 
 #chat-box {
     border: 1px solid coral;
-    height: 100px;
+}
+.user {
+    display: flex;
+    margin: 5px;
+}
+
+.user:hover {
+    background-color: white;
+}
+
+.nick {
+    width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.avatar {
+    height: 50px;
+    width: 50px;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
 }

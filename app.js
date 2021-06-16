@@ -10,6 +10,8 @@ const port = process.env.PORT || 8080;
 
 app.use(express.static(__dirname + '/public'));
 
+const users = [];
+
 io.on('connection', (socket) => {
 
     //When a user connects, we create a new uniq nick name 
@@ -22,6 +24,7 @@ io.on('connection', (socket) => {
             const token = jwt.sign({nickName}, 'ahguy21367278@#$%$%@wer', {expiresIn: '1w'});
             const ticket = {token, nickName};
             console.log(nickName + ' is joind to the chat');
+            users.push({nickName, avatar: '/avatar.png'});
             return ticket
         }
 
@@ -43,6 +46,7 @@ io.on('connection', (socket) => {
         } else {
             socket.emit('ticket', ticketHandler());
         }
+        io.emit('users', users);
     });
     
 

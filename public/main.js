@@ -1,10 +1,13 @@
 const socket = io();
 
+
+
 const clickHandler = () => {
     let msg = document.querySelector('#msg-box');
     socket.emit('chat message', msg.value);
     msg.value = '';
 }
+
 
 socket.emit('token', sessionStorage.getItem('token'));
 
