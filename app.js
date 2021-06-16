@@ -11,8 +11,11 @@ const port = process.env.PORT || 8080;
 app.use(express.static(__dirname + '/public'));
 
 const users = [];
+const channels = ['JS', 'React', 'Angular', 'Vue', 'NodeJS', 'C#', 'Java'];
 
 io.on('connection', (socket) => {
+
+    socket.emit('channels', channels);
 
     //When a user connects, we create a new uniq nick name 
     //and emmit
@@ -51,9 +54,15 @@ io.on('connection', (socket) => {
     
 
 
-    socket.on('chat message', (message) => {
-        console.log(message);
-        io.emit('chat msg', message);
+    socket.on('chat message', (envelope) => {
+        if(envelope.user) {
+            //message goes to user
+        } else {
+            //message goes to the channel
+            io.emit('chat msg', envelope);
+        }
+        //console.log(message);
+        //io.emit('chat msg', message);
     });
 
     socket.on('disconnect', () => {

@@ -91,3 +91,17 @@ ul{
 .btn-blue:hover {
     background-color: cornflowerblue;
 }
+
+.list-item {
+    padding: 10px 15px;
+    border-bottom: 1px solid cornflowerblue;
+}
+
+.list-item:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+ul > .active {
+    background-color: white!important;
+}
