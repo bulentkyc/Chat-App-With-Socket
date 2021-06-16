@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
             const token = jwt.sign({nickName}, 'ahguy21367278@#$%$%@wer', {expiresIn: '1w'});
             const ticket = {token, nickName};
             console.log(nickName + ' is joind to the chat');
-            users.push({nickName, avatar: '/avatar.png'});
+            users.push(nickName);
             return ticket
         }
 
