@@ -6,7 +6,8 @@ const state = {
     users:[],
     channels:[],
     activeChannel: 'JS',
-    activeUser: null
+    activeUser: null,
+    usedChannels:{JS:[],C:[]}
 };
 const switchHandler = () => {
     //alert(state.list);
@@ -29,10 +30,22 @@ const switchHandler = () => {
 
 const listClickHandler = (name) => {
     //alert(name);
-    const preItem = state.activeChannel;
-    state.activeChannel = name;
-    $(`#${preItem}`).classList.remove('active');
-    $(`#${name}`).classList.add('active');
+    if (state.list == 0 ) {
+        $('#chat-box').innerHTML = '';
+        const preItem = state.activeChannel;
+        state.activeChannel = name;
+        $(`#${preItem}`).classList.remove('active');
+        $(`#${name}`).classList.add('active');
+        if(!state.usedChannels[name]){
+            state.usedChannels[name] = [];
+        }
+        console.log(state.usedChannels)
+        state.usedChannels[state.activeChannel].forEach( msg => {
+            document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li>${msg}</li>`);
+        });
+
+    }
+    
 }
 
 const listManager = () => {
@@ -50,9 +63,20 @@ const listManager = () => {
 }
 
 socket.on('chat msg', envelope => {
+
+    //if envelope.channel == onse of the keys of state.usedChannels
+
+    Object.keys(state.usedChannels).forEach( key => {
+        if(envelope.channel == key) {
+            state.usedChannels[key].push(envelope.msg);
+        }
+
+        console.log(state.usedChannels[key]);
+    });
+
     if (state.activeChannel == envelope.channel) {
         document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li>${envelope.msg}</li>`);
-    }
+    } 
 });
 
 socket.on('users', users => {

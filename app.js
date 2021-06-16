@@ -11,7 +11,7 @@ const port = process.env.PORT || 8080;
 app.use(express.static(__dirname + '/public'));
 
 const users = [];
-const channels = ['JS', 'React', 'Angular', 'Vue', 'NodeJS', 'C#', 'Java'];
+const channels = ['JS', 'React', 'Angular', 'Vue', 'NodeJS', 'C', 'Java'];
 
 io.on('connection', (socket) => {
 
