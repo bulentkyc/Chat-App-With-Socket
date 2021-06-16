@@ -7,7 +7,7 @@ const state = {
     channels:[],
     activeChannel: 'JS',
     activeUser: null,
-    usedChannels:{JS:[],C:[]}
+    usedChannels:{JS:[]}
 };
 const switchHandler = () => {
     //alert(state.list);
@@ -31,7 +31,6 @@ const switchHandler = () => {
 const listClickHandler = (name) => {
     //alert(name);
     if (state.list == 0 ) {
-        $('#chat-box').innerHTML = '';
         const preItem = state.activeChannel;
         state.activeChannel = name;
         $(`#${preItem}`).classList.remove('active');
@@ -39,13 +38,12 @@ const listClickHandler = (name) => {
         if(!state.usedChannels[name]){
             state.usedChannels[name] = [];
         }
-        console.log(state.usedChannels)
+        console.log(state.usedChannels);
+        $('#chat-box').innerHTML = '';
         state.usedChannels[state.activeChannel].forEach( msg => {
             document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li>${msg}</li>`);
         });
-
     }
-    
 }
 
 const listManager = () => {
@@ -56,6 +54,7 @@ const listManager = () => {
         `<li id = "${item}" onclick = "listClickHandler('${item}')" class = "list-item">
             ${item}
         </li>`);
+        
         if(item == list[list.length-1] && state.list === 0){
             listClickHandler(state.activeChannel);
         }

@@ -1,3 +1,9 @@
+:root {
+    --bg-primary: #c6def1;
+    --bg-active: white;
+    --bg-btn-main: #e2cfc4;
+}
+
 body{
     display: flex;
     flex-direction: column;
@@ -7,6 +13,7 @@ body{
 
 main{
     width: 80vw;
+    max-width: 800px;
     height: 60vh;
     display: grid;
     grid-template-columns: 200px auto;
@@ -15,12 +22,36 @@ main{
 #user-channel-list  {
     height: 100%;
     border: 1px solid red;
-    background-color: antiquewhite;
+    background-color: var(--bg-primary);
     overflow: scroll;
+}
+
+/* width */
+#user-channel-list::-webkit-scrollbar {
+    width: 10px;
+}
+  
+  /* Track */
+#user-channel-list::-webkit-scrollbar-track {
+    background: #abe4ff00; 
+    width: 0px;
+}
+   
+  /* Handle */
+#user-channel-list::-webkit-scrollbar-thumb:vertical {
+    background-color: darkgrey;
+  outline: 1px solid slategrey;
+  border: 5px solid lavender;
+}
+  
+  /* Handle on hover */
+#user-channel-list::-webkit-scrollbar-thumb:hover {
+    background: rgb(197, 41, 41); 
 }
 
 #chat-view {
     height: 100%;
+    max-width: 600px;
 }
 
 #chat-view > * {
@@ -42,7 +73,7 @@ main{
 }
 
 #chat-box {
-    border: 1px solid coral;
+    border: 1px solid coral
 }
 .user {
     display: flex;
@@ -85,7 +116,7 @@ ul{
 }
 
 .btn-blue {
-    background-color: lavender;
+    background-color: var(--bg-btn-main);
 }
 
 .btn-blue:hover {
