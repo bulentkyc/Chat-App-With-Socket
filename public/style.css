@@ -60,6 +60,7 @@ main{
 
 #chat-box {
     height: 55vh;
+    border: 1px solid coral
 }
 
 #chat-view > section {
@@ -72,9 +73,6 @@ main{
     margin: 0;
 }
 
-#chat-box {
-    border: 1px solid coral
-}
 .user {
     display: flex;
     margin: 5px;

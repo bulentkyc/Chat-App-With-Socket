@@ -1,6 +1,9 @@
 const socket = io();
+
 const $ = selector => document.querySelector(selector);
+
 const listEnumerable = ['channels', 'users']
+
 const state = {
     list: 0,
     users:[],
@@ -9,8 +12,10 @@ const state = {
     activeUser: null,
     usedChannels:{JS:[]}
 };
+
 const switchHandler = () => {
     //alert(state.list);
+    state.activeUser = null
     switch (state.list) {
         case 0:
             state.list = 1;
@@ -43,6 +48,9 @@ const listClickHandler = (name) => {
         state.usedChannels[state.activeChannel].forEach( msg => {
             document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li>${msg}</li>`);
         });
+    } else if(state.list == 1) {
+        //TODO: Manage for personal messaging
+        state.activeUser = name;
     }
 }
 
@@ -54,7 +62,7 @@ const listManager = () => {
         `<li id = "${item}" onclick = "listClickHandler('${item}')" class = "list-item">
             ${item}
         </li>`);
-        
+
         if(item == list[list.length-1] && state.list === 0){
             listClickHandler(state.activeChannel);
         }
@@ -65,17 +73,24 @@ socket.on('chat msg', envelope => {
 
     //if envelope.channel == onse of the keys of state.usedChannels
 
-    Object.keys(state.usedChannels).forEach( key => {
-        if(envelope.channel == key) {
-            state.usedChannels[key].push(envelope.msg);
-        }
+    if(envelope.user) {
 
-        console.log(state.usedChannels[key]);
-    });
-
-    if (state.activeChannel == envelope.channel) {
         document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li>${envelope.msg}</li>`);
-    } 
+
+    } else {
+
+        Object.keys(state.usedChannels).forEach( key => {
+            if(envelope.channel == key) {
+                state.usedChannels[key].push(envelope.msg);
+            }
+
+            console.log(state.usedChannels[key]);
+        });
+
+        if (state.activeChannel == envelope.channel) {
+            document.querySelector('#chat-box').insertAdjacentHTML("beforeend", `<li>${envelope.msg}</li>`);
+        } 
+    }
 });
 
 socket.on('users', users => {
